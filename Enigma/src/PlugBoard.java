@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 import processing.core.*;
 import java.util.Random;
+
 public class PlugBoard {
 
-	Plug[] plugs = new Plug[10];
-	PlugPoint[] plugPoints = new PlugPoint[26];
-	boolean showing = false;
-	boolean movingPlug = false;
-	int movingPlugNo = 0;
+	private Plug[] plugs = new Plug[10];
+	private PlugPoint[] plugPoints = new PlugPoint[26];
+	private boolean showing = false;
+	private boolean movingPlug = false;
+	private int movingPlugNo = 0;
 	private PApplet parent;
 
 	public PlugBoard(PApplet parent) {
@@ -33,8 +34,8 @@ public class PlugBoard {
 			}
 			chosen.add(rand2);
 			plugs[i] = new Plug(rand1, rand2, plugPoints[rand1], plugPoints[rand2], parent);
-			plugPoints[rand1].occupied = true;
-			plugPoints[rand2].occupied = true;
+			plugPoints[rand1].setOccupied(true);
+			plugPoints[rand2].setOccupied(true);
 		}
 	}
 
@@ -54,10 +55,10 @@ public class PlugBoard {
 
 	int code(int input) {
 		for (int i = 0; i < plugs.length; i++) {
-			if (plugs[i].connection1 == input) {
-				return plugs[i].connection2;
-			} else if (plugs[i].connection2 == input) {
-				return plugs[i].connection1;
+			if (plugs[i].getConnection1() == input) {
+				return plugs[i].getConnection2();
+			} else if (plugs[i].getConnection2() == input) {
+				return plugs[i].getConnection1();
 			}
 		}
 
@@ -76,19 +77,27 @@ public class PlugBoard {
 		} else {
 			for (int i = 0; i < plugPoints.length; i++) {
 				if (plugPoints[i].click(x, y)) {
-					if (!plugPoints[i].occupied) {
+					if (!plugPoints[i].getOccupied()) {
 						movingPlug = false;
-						if (plugs[movingPlugNo].move1) {
+						if (plugs[movingPlugNo].getMove1()) {
 							plugs[movingPlugNo].setPlugPoint(i, plugPoints[i], 1);
-							plugs[movingPlugNo].move1 = false;
+							plugs[movingPlugNo].setMove1(false);
 						} else {
 							plugs[movingPlugNo].setPlugPoint(i, plugPoints[i], 2);
-							plugs[movingPlugNo].move2 = false;
+							plugs[movingPlugNo].setMove2(false);
 						}
 					}
 					return;
 				}
 			}
 		}
+	}
+
+	public boolean getShowing() {
+		return showing;
+	}
+
+	public void setShowing(boolean showing) {
+		this.showing = showing;
 	}
 }

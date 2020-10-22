@@ -1,17 +1,18 @@
 import processing.core.*;
 
-public class PlugPoint extends Enigma {
+public class PlugPoint {
 
-	PVector pos = new PVector();
-	char letter;
-	int letterNo;
-	boolean occupied = false;
-	public PApplet parent;
+	private String letterOrder = "QWERTYUIOPASDFGHJKLZXCVBNM";
+	private PVector pos = new PVector();
+	private char letter;
+	private int letterNo;
+	private boolean occupied = false;
+	private PApplet parent;
 
 	public PlugPoint(int no, PApplet parent) {
 		this.parent = parent;
-		letterNo = no;
-		letter = letterOrder.charAt(no);
+		setLetterNo(no);
+		setLetter(letterOrder.charAt(no));
 		int level;
 		int rowPos;
 		double x;
@@ -34,25 +35,57 @@ public class PlugPoint extends Enigma {
 		if (no % 3 == 0) {
 			y += 15;
 		}
-		pos = new PVector((float)x, y);
+		setPos(new PVector((float) x, y));
 	}
 
 	void show() {
 		parent.textAlign(PConstants.CENTER, PConstants.CENTER);
 		parent.textSize(20);
 		parent.fill(255);
-		parent.text(letter, pos.x, pos.y - 40);
+		parent.text(getLetter(), getPos().x, getPos().y - 40);
 		parent.fill(20);
 		parent.stroke(255);
 
-		parent.ellipse(pos.x, pos.y, 20, 20);
-		parent.ellipse(pos.x, pos.y + 30, 20, 20);
+		parent.ellipse(getPos().x, getPos().y, 20, 20);
+		parent.ellipse(getPos().x, getPos().y + 30, 20, 20);
 	}
 
 	boolean click(int x, int y) {
-		if (x < pos.x + 15 && x > pos.x - 15 && y < pos.y + 35 && y > pos.y - 35) {
+		if (x < getPos().x + 15 && x > getPos().x - 15 && y < getPos().y + 35 && y > getPos().y - 35) {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean getOccupied() {
+		return occupied;
+	}
+
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
+	}
+
+	public PVector getPos() {
+		return pos;
+	}
+
+	public void setPos(PVector pos) {
+		this.pos = pos;
+	}
+
+	public char getLetter() {
+		return letter;
+	}
+
+	public void setLetter(char letter) {
+		this.letter = letter;
+	}
+
+	public int getLetterNo() {
+		return letterNo;
+	}
+
+	public void setLetterNo(int letterNo) {
+		this.letterNo = letterNo;
 	}
 }

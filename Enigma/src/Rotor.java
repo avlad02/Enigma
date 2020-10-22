@@ -2,10 +2,10 @@ import processing.core.*;
 
 public class Rotor {
 
-	int[][] wiring;
-	int position = 0;
-	int rotorNo;
-	public PApplet parent;
+	private int[][] wiring;
+	private int position = 0;
+	private int rotorNo;
+	private PApplet parent;
 
 	public Rotor(int rotorNumber, PApplet parent) {
 		this.parent = parent;
@@ -43,6 +43,17 @@ public class Rotor {
 			break;
 		}
 	}
+	
+	public int getPosition() {
+		return position;
+	}
+	public void incrementPosition() {
+		position++;
+	}
+	public void setPosition(int position) {
+		this.position = position;
+	}
+	
 
 	int code(int input, boolean forward) {
 		if (forward) {

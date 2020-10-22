@@ -2,10 +2,10 @@ import processing.core.*;
 
 public class Key {
 
-	char letter;
-	int index;
-	PVector pos;
-	boolean pressed = false;
+	private char letter;
+	private int index;
+	private PVector pos;
+	private boolean pressed = false;
 	private PApplet parent;
 
 	public Key(char letterIn, int indexIn, PApplet parent) {
@@ -37,6 +37,10 @@ public class Key {
 		parent.textSize(25);
 		parent.fill(255);
 		parent.text(letter, pos.x - 8, pos.y + 10);
+	}
+	
+	public void setPressed(boolean pressed) {
+		this.pressed = pressed;
 	}
 
 }

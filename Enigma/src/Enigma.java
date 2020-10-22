@@ -6,15 +6,14 @@ public class Enigma extends PApplet {
 		PApplet.main("Enigma");
 	}
 
-	Key[] keyboard;
-	PlugBoard plugBoard;
-	Rotor rotor1, rotor2, rotor3;
-	Reflector ref;
-	boolean showPlugs = false;
-	String letterOrder = "QWERTYUIOPASDFGHJKLZXCVBNM";
-	String letterOrderLower = "qwertyuiopasdfghjklzxcvbnm";
-	int output;
-	String word = "";
+	private Key[] keyboard;
+	private PlugBoard plugBoard;
+	private Rotor rotor1, rotor2, rotor3;
+	private Reflector ref;
+	private boolean showPlugs = false;
+	private String letterOrder = "QWERTYUIOPASDFGHJKLZXCVBNM";
+	private String letterOrderLower = "qwertyuiopasdfghjklzxcvbnm";
+	private String word = "";
 
 	public void settings() {
 		fullScreen();
@@ -48,11 +47,12 @@ public class Enigma extends PApplet {
 			rotor3.show();
 			textSize(25);
 			fill(255);
-			text(word,60, 60);
+			text(word, 60, 60);
 		}
 	}
 
 	public void keyPressed() {
+		int output;
 		output = plugBoard.code(letterOrderLower.indexOf(key));
 		output = rotor1.code(output, true);
 		output = rotor2.code(output, true);
@@ -63,16 +63,14 @@ public class Enigma extends PApplet {
 		output = rotor1.code(output, false);
 		output = plugBoard.code(output);
 		moveRotors();
-		keyboard[output].pressed = true;
+		keyboard[output].setPressed(true);
 		word = word + letterOrderLower.charAt(output);
-		
-		
-		
+
 	}
 
 	public void keyReleased() {
 		for (int i = 0; i < keyboard.length; i++)
-			keyboard[i].pressed = false;
+			keyboard[i].setPressed(false);
 	}
 
 	public void mousePressed() {
@@ -90,15 +88,15 @@ public class Enigma extends PApplet {
 	}
 
 	void moveRotors() {
-		rotor1.position += 1;
-		if (rotor1.position == 26) {
-			rotor1.position = 0;
-			rotor2.position += 1;
-			if (rotor2.position == 26) {
-				rotor2.position = 0;
-				rotor3.position += 1;
-				if (rotor3.position == 26) {
-					rotor3.position = 0;
+		rotor1.incrementPosition();
+		if (rotor1.getPosition() == 26) {
+			rotor1.setPosition(0);
+			rotor2.incrementPosition();
+			if (rotor2.getPosition() == 26) {
+				rotor2.setPosition(0);
+				rotor3.incrementPosition();
+				if (rotor3.getPosition() == 26) {
+					rotor3.setPosition(0);
 				}
 			}
 		}

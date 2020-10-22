@@ -1,7 +1,7 @@
 
 public class Reflector {
 
-	int[][] wiring;
+	private int[][] wiring;
 
 	Reflector() {
 		wiring = new int[][] { { 0, 21 }, { 1, 10 }, { 2, 22 }, { 3, 17 }, { 4, 6 }, { 5, 8 }, { 6, 4 }, { 7, 19 },
